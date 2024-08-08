@@ -6,3 +6,8 @@
   padding: 6rem;
   min-height: 100vh;
 }
+
+.flexGap{
+  display: flex;
+  gap: 2rem;
+}

@@ -20,6 +20,36 @@
     --text-md: calc(var(--text-sm) * var(--scale));
     --text-lg: calc(var(--text-md) * var(--scale));
     --text-xl: calc(var(--text-lg) * var(--scale));
+
+    /* checkbox sizes */
+    --checkbox-size: 1.25rem; /* Base size */
+    --checkmark-width: 0.25rem;
+    --checkmark-height: 0.5rem;
+    --minus-width: 0.625rem;
+    --minus-height: 0.125rem;
+    --border-width: 0.125rem;
+
+    /*sm*/
+    --checkbox-size-sm: var(--text-sm);
+    --checkmark-width-sm: calc(0.25 * var(--text-sm));
+    --checkmark-height-sm: calc(0.5 * var(--text-sm));
+    --minus-width-sm: calc(0.625 * var(--text-sm));
+    --minus-height-sm: calc(0.125 * var(--text-sm));
+    --border-width-sm: calc(0.125 * var(--text-sm));
+    /*md*/
+    --checkbox-size-md: var(--text-md);
+    --checkmark-width-md: calc(0.25 * var(--text-md));
+    --checkmark-height-md: calc(0.5 * var(--text-md));
+    --minus-width-md: calc(0.625 * var(--text-md));
+    --minus-height-md: calc(0.125 * var(--text-md));
+    --border-width-md: calc(0.125 * var(--text-md));
+    /* lg */
+    --checkbox-size-lg: var(--text-lg);
+    --checkmark-width-lg: calc(0.25 * var(--text-lg));
+    --checkmark-height-lg: calc(0.5 * var(--text-lg));
+    --minus-width-lg: calc(0.625 * var(--text-lg));
+    --minus-height-lg: calc(0.125 * var(--text-lg));
+    --border-width-lg: calc(0.125 * var(--text-lg));
   }
   /* Reset and global styles */
   html {
