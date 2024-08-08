@@ -30,7 +30,46 @@ export default function Home() {
             <TriStateCheckbox scale="lg" value="Indeterminate" />
           </div>
         </div>
-        
+        <h2>IconLink</h2>
+        <div className={styles.flexGap}>
+          <div>
+            <IconLink
+              href="#"
+              icon={<AiOutlineDownload size={30} aria-hidden="true" />}
+              onClick={() => {
+                alert("Download");
+              }}
+              variant="default"
+            >
+              Download selected
+            </IconLink>
+          </div>
+          <div>
+            <IconLink
+              href="#"
+              icon={<AiOutlineDownload size={30} aria-hidden="true" />}
+              iconPosition="right"
+              onClick={() => {
+                alert("Download");
+              }}
+              variant="outlined"
+            >
+              Download selected
+            </IconLink>
+          </div>
+          <div>
+            <IconLink
+              href="#"
+              icon={<AiOutlineDownload size={30} aria-hidden="true" />}
+              onClick={() => {
+                alert("Download");
+              }}
+              variant="contained"
+            >
+              Download selected
+            </IconLink>
+          </div>
+        </div>
       </div>
     </main>
   );
