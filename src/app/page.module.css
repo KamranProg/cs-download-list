@@ -3,11 +3,17 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
   min-height: 100vh;
+  padding-bottom: 1rem;
 }
 
 .flexGap{
   display: flex;
   gap: 2rem;
+}
+
+.flexBaseline{
+  display: flex;
+  align-items: baseline;
+  gap: 0.2rem;
 }
