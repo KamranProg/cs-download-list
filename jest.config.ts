@@ -12,7 +12,7 @@ const config: Config = {
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
-  // Stop running tests after `n` failures
+  // Stop running tests after n failures
   // bail: 0,
 
   // The directory where Jest should store its cached dependency information
@@ -93,7 +93,11 @@ const config: Config = {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  preset: 'ts-jest', // Only necessary if using TypeScript
+ 
+  moduleNameMapper: {
+    "^@/(.*)$": "<rootDir>/src/$1" // Adjust the path according to your project structure
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
