@@ -1,0 +1,86 @@
+/* IconButton.module.css */
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  text-decoration: none;
+  color: var(--black);
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border: none;
+  background: transparent;
+  outline: none;
+  border: 2px solid transparent;
+}
+
+/* Icon Styles */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0.5rem;
+}
+
+.iconFirst {
+  margin-left: 0;
+}
+
+.iconLast {
+  margin-right: 0;
+}
+
+/* Variants */
+.default:hover {
+  color: var(--lightblack);
+}
+
+.iconButton:disabled {
+  /* color: var(--disabled-color); */
+  opacity: 0.5;
+  /* background-color: var(--disabled-background-color); */
+  cursor: not-allowed;
+  /* border-color: var(--gray); */
+}
+
+.default:hover .icon svg {
+  fill: var(--lightblack);
+}
+
+.outlined {
+  border: 2px solid var(--black);
+}
+
+.outlined:hover {
+  color: var(--lightblack);
+  border-color: var(--lightblack);
+}
+
+.contained {
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.contained:hover {
+  background-color: var(--lightblack);
+}
+
+/* Scale variations if needed */
+.xs {
+  /* padding: 4px 8px; */
+  font-size: 0.75rem;
+}
+
+.sm {
+  /* padding: 6px 12px; */
+  font-size: 0.875rem;
+}
+
+.md {
+  /* padding: 8px 16px; */
+  font-size: 1rem;
+}
+
+.lg {
+  /* padding: 10px 20px; */
+  font-size: 1.25rem;
+}
