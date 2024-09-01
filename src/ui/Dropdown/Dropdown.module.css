@@ -1,0 +1,49 @@
+.dropdownButton {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  color: var(--black);
+  background: transparent;
+  border-radius: 5px;
+  border: 2px solid transparent;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+
+/* Variants */
+.default:hover {
+  background-color: var(--lightblack);
+  color: white;
+}
+
+.outlined {
+  border: 2px solid var(--black);
+}
+
+.outlined:hover {
+  color: var(--lightblack);
+  border-color: var(--lightblack);
+}
+
+.contained {
+  background-color: var(--black);
+  color: var(--white);
+}
+
+.contained:hover {
+  background-color: var(--lightblack);
+}
+
+/* Scale variations */
+.xs {
+  font-size: 0.75rem;
+}
+.sm {
+  font-size: 0.875rem;
+}
+.md {
+  font-size: 1rem;
+}
+.lg {
+  font-size: 1.25rem;
+}
