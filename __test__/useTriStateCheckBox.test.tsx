@@ -1,7 +1,8 @@
-import { act, renderHook } from "@testing-library/react";
+import { renderHook } from "@testing-library/react";
 import { CHECKBOX_STATES } from "@/ui/CheckBox/TriStateCheckBox";
 import useTriStateCheckBox from "@/ui/CheckBox/useTriStateCheckBox";
 import { FileData } from "@/data/files_data";
+import { act } from "react";
 
 export const mockData: FileData[] = [
   {
@@ -20,29 +21,33 @@ export const mockData: FileData[] = [
 
 describe("useTriStateCheckBox", () => {
   it("should initialize with empty checked items and Empty selectAllStatus", () => {
-    const { result } = renderHook(() => useTriStateCheckBox(mockData));
+    const { result } = renderHook(() =>
+      useTriStateCheckBox(mockData, (item) => item.path)
+    );
 
     expect(result.current.checkedItems).toEqual({});
     expect(result.current.selectAllStatus).toBe(CHECKBOX_STATES.Empty);
   });
 
   it("should handle selecting one item", () => {
-    const { result } = renderHook(() => useTriStateCheckBox(mockData));
+    const { result } = renderHook(() =>
+      useTriStateCheckBox(mockData, (item) => item.path)
+    );
     const fileToSelect = mockData[0];
-
     act(() => {
       result.current.handleSelectOne(true, fileToSelect);
     });
 
     expect(result.current.checkedItems[fileToSelect.path]).toEqual({
       checked: true,
-      file: fileToSelect,
+      item: fileToSelect,
     });
   });
 
   it("should handle selecting all items", () => {
-    const { result } = renderHook(() => useTriStateCheckBox(mockData));
-
+    const { result } = renderHook(() =>
+      useTriStateCheckBox(mockData, (item) => item.path)
+    );
     act(() => {
       result.current.handleSelectAll();
     });
@@ -52,13 +57,14 @@ describe("useTriStateCheckBox", () => {
   });
 
   it("should handle unselecting all items", () => {
-    const { result } = renderHook(() => useTriStateCheckBox(mockData));
+    const { result } = renderHook(() =>
+      useTriStateCheckBox(mockData, (item) => item.path)
+    );
 
     // First select all items
     act(() => {
       result.current.handleSelectAll();
     });
-
     // Then unselect all items
     act(() => {
       result.current.handleSelectAll();
