@@ -31,7 +31,11 @@ export default function FileListHeader({
 
   return (
     <thead className={styles.fileListHeader}>
-      <tr className="textMd textBold">
+      <tr
+        className={clsx(styles.actions, {
+          "textMd textBold": true,
+        })}
+      >
         <th>
           <TriStateCheckbox
             name="select-all"
@@ -43,7 +47,7 @@ export default function FileListHeader({
         <th className={styles.minTextWidth} aria-hidden={true}>
           {selectedMsg}
         </th>
-        <th>
+        <th  className={styles.flexGrowFull}>
           <IconButton
             icon={<AiOutlineDownload size={30} aria-hidden="true" />}
             onClick={handleDownloadAllClick}
@@ -53,7 +57,11 @@ export default function FileListHeader({
           </IconButton>
         </th>
       </tr>
-      <tr className="textCenter textSm">
+      <tr
+        className={clsx(styles.columnsHeadersRow, {
+          "textCenter textSm": true,
+        })}
+      >
         <th></th>
         <th>Name</th>
         <th>Device</th>

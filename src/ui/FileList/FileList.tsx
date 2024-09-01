@@ -26,7 +26,7 @@ export default function FileList({
         {data.map((file: FileData) => (
           <FileListRow
             key={file.path}
-            file={file}
+            itemData={file}
             handleSelectOne={onSelectOne}
             checked={checkedItems[file?.path]?.checked || false}
           />

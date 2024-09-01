@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import HeaderLinks from "@/ui/HeaderLinks/HeaderLinks";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,7 +17,26 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <main className="main">
+          <div className="container">
+            <HeaderLinks
+              links={[
+                { href: "/", text: "Home" },
+                {
+                  href: "/paginated-list?page=1&per_page=5",
+                  text: "PaginatedList example",
+                },
+                {
+                  href: "/infinite-scroll",
+                  text: "InfiniteScroll example",
+                },
+              ]}
+            />
+            {children}
+          </div>
+        </main>
+      </body>
     </html>
   );
 }

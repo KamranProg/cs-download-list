@@ -11,3 +11,23 @@
 .fileListHeader th.minTextWidth {
   min-width: 180px;
 }
+.fileListHeader tr{
+  padding: 0.5rem
+}
+
+/* Adjust the visibility of the second header */
+@media screen and (max-width: 998px) {
+  .fileListHeader .actions {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .fileListHeader .flexGrowFull {
+    flex-grow: 1;
+  }
+  .fileListHeader .columnsHeadersRow {
+    display: none; /* Hide the second header on smaller screens */
+  }
+}

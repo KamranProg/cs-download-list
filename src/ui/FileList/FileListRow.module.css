@@ -8,6 +8,7 @@
 
 .fileListRow.rowNotSelectable {
   /* background-color: var(--disabled-background-color); */
+  cursor: not-allowed;
   color: var(--disabled-color);
   opacity: 0.76;
 }
@@ -37,4 +38,37 @@
 
 .fileListRow .statusIndicatorWidth {
   margin-left: 1.5rem;
+}
+
+/* Adjustments for mobile sizes */
+
+.fileListRow span.mobileSizeLabel {
+  display: none;
+}
+
+@media (max-width: 998px) {
+  .fileListRow {
+    display: block;
+  }
+  .fileListRow td {
+    display: flex;
+    width: 100%;
+    padding-top: 10px; /* top border effect */
+    border-top: 1px solid var(--grayseperator);
+    text-align: left;
+  }
+
+  .fileListRow span.mobileSizeLabel {
+    display: inline;
+    margin-right: 0.5rem;
+    font-weight: 900;
+  }
+  /* .fileListRow td:nth-child(4),
+  .fileListRow td:nth-child(5) {
+
+    display: block;
+    width: 100%;
+    padding-top: 10px;
+    border-top: 1px solid var(--grayseperator);
+  }  */
 }

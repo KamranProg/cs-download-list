@@ -1,0 +1,28 @@
+.list {
+  border: 1px solid var(--grayseperator);
+  border-collapse: collapse;
+  color: var(--black);
+}
+.list tr {
+  border: 1px solid lightgray;
+}
+.list tr:last-child {
+  border-bottom: none;
+}
+
+.list .statusIndicator {
+  display: flex;
+  align-items: center;
+}
+.list .statusIndicator::before {
+  content: "";
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  background-color: var(--green);
+}
+.list th.minTextWidth {
+  min-width: 180px;
+}

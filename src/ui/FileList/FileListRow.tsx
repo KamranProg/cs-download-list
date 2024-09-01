@@ -5,13 +5,13 @@ import CheckBox from "@/ui/CheckBox/CheckBox";
 import styles from "./FileListRow.module.css";
 
 export interface FileListRowProps {
-  file: FileData;
+  itemData: FileData;
   checked: boolean;
-  handleSelectOne: (isChecked: boolean, file: FileData) => void;
+  handleSelectOne?: (isChecked: boolean, file: FileData) => void;
   className?: string;
 }
 export default function FileListRow({
-  file: { name, device, path, status },
+  itemData: { name, device, path, status },
   checked,
   handleSelectOne,
   className = "",
@@ -19,11 +19,13 @@ export default function FileListRow({
   const handleCheckBoxClick = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();
     const { checked } = e.target;
-    handleSelectOne(checked, { name, device, path, status });
+    if (handleSelectOne)
+      handleSelectOne(checked, { name, device, path, status });
   };
 
   const handleRowClick = () => {
-    handleSelectOne(!checked, { name, device, path, status });
+    if (handleSelectOne)
+      handleSelectOne(!checked, { name, device, path, status });
   };
 
   const isDisabled = status === "scheduled";
@@ -34,11 +36,11 @@ export default function FileListRow({
     <tr
       className={clsx(styles.fileListRow, {
         [styles.rowSelected]: checked,
-        [styles.rowNotSelectable]: status !== "available",
+        [styles.rowNotSelectable]: isDisabled,
         "textXs textBold": true,
         [className]: className,
       })}
-      onClick={handleRowClick}
+      onClick={isDisabled ? undefined : handleRowClick}
     >
       <td>
         <CheckBox
@@ -49,10 +51,20 @@ export default function FileListRow({
           disabled={isDisabled}
         />
       </td>
-      <td className="textCenter">{name}</td>
-      <td className="textCenter">{device}</td>
-      <td>{path}</td>
+      <td className="textCenter">
+        <span className={styles.mobileSizeLabel}>Name:</span>
+        {name}
+      </td>
+      <td className="textCenter">
+        <span className={styles.mobileSizeLabel}>Device:</span>
+        {device}
+      </td>
+      <td>
+        <span className={styles.mobileSizeLabel}>Path:</span>
+        {path}
+      </td>
       <td className={styles.status}>
+        <span className={styles.mobileSizeLabel}>Status:</span>
         <span
           className={clsx({
             [styles.statusIndicator]: !isDisabled, // status === "available"
