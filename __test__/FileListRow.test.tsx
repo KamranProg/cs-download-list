@@ -1,6 +1,6 @@
 import React from "react";
 import { render, fireEvent, screen } from "@testing-library/react";
-import FileListRow from "@/ui/FileList/FileListRow"; // Adjust the import path if necessary
+import FileListRow from "@/ui/FileList/FileListRow";
 import "@testing-library/jest-dom";
 import { FileData } from "@/data/files_data";
 
@@ -20,11 +20,15 @@ const mockFileDataScheduled: FileData = {
 describe("FileListRow", () => {
   it("renders correctly with available status", () => {
     render(
-      <FileListRow
-        file={mockFileData}
-        checked={false}
-        handleSelectOne={() => {}}
-      />
+      <table>
+        <tbody>
+          <FileListRow
+            itemData={mockFileData}
+            checked={false}
+            handleSelectOne={() => {}}
+          />
+        </tbody>
+      </table>
     );
 
     expect(
@@ -37,11 +41,15 @@ describe("FileListRow", () => {
 
   it("renders correctly with scheduled status", () => {
     render(
-      <FileListRow
-        file={mockFileDataScheduled}
-        checked={false}
-        handleSelectOne={() => {}}
-      />
+      <table>
+        <tbody>
+          <FileListRow
+            itemData={mockFileDataScheduled}
+            checked={false}
+            handleSelectOne={() => {}}
+          />
+        </tbody>
+      </table>
     );
 
     expect(
@@ -54,11 +62,15 @@ describe("FileListRow", () => {
   it("handles checkbox click", () => {
     const handleSelectOne = jest.fn();
     render(
-      <FileListRow
-        file={mockFileData}
-        checked={false}
-        handleSelectOne={handleSelectOne}
-      />
+      <table>
+        <tbody>
+          <FileListRow
+            itemData={mockFileData}
+            checked={false}
+            handleSelectOne={handleSelectOne}
+          />
+        </tbody>
+      </table>
     );
 
     fireEvent.click(screen.getByRole("checkbox"));
@@ -67,11 +79,15 @@ describe("FileListRow", () => {
 
   it("displays row as selected when checkbox is checked", () => {
     const { container } = render(
-      <FileListRow
-        file={mockFileData}
-        checked={true}
-        handleSelectOne={() => {}}
-      />
+      <table>
+        <tbody>
+          <FileListRow
+            itemData={mockFileData}
+            checked={true}
+            handleSelectOne={() => {}}
+          />
+        </tbody>
+      </table>
     );
     expect(container.querySelector("tr")).toHaveClass("rowSelected");
   });
@@ -79,11 +95,15 @@ describe("FileListRow", () => {
   it("toggles the row's selected state when the row is clicked", () => {
     const handleSelectOne = jest.fn();
     render(
-      <FileListRow
-        file={mockFileData}
-        checked={false}
-        handleSelectOne={handleSelectOne}
-      />
+      <table>
+        <tbody>
+          <FileListRow
+            itemData={mockFileData}
+            checked={false}
+            handleSelectOne={handleSelectOne}
+          />
+        </tbody>
+      </table>
     );
 
     const row = screen.getByRole("row");
@@ -94,11 +114,15 @@ describe("FileListRow", () => {
 
   it("indicates non-selectable status correctly", () => {
     render(
-      <FileListRow
-        file={mockFileDataScheduled}
-        checked={false}
-        handleSelectOne={() => {}}
-      />
+      <table>
+        <tbody>
+          <FileListRow
+            itemData={mockFileDataScheduled}
+            checked={false}
+            handleSelectOne={() => {}}
+          />
+        </tbody>
+      </table>
     );
     expect(screen.getByText(mockFileDataScheduled.status)).toBeInTheDocument();
     const row = screen.getByRole("row");
