@@ -1,29 +1,35 @@
-import React, {
-  AnchorHTMLAttributes,
-  ButtonHTMLAttributes,
-  ReactNode,
-} from "react";
+import React, { ButtonHTMLAttributes, ReactNode } from "react";
 import clsx from "clsx";
 import styles from "./IconButton.module.css";
 
-interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  icon: ReactNode;
-  iconPosition?: "left" | "right";
+interface BaseIconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   variant?: "default" | "outlined" | "contained";
   scale?: "xs" | "sm" | "md" | "lg";
 }
 
-const IconButton: React.FC<IconButtonProps> = ({
+interface IconButtonWithIconProps extends BaseIconButtonProps {
+  icon: ReactNode;
+  iconPosition?: "left" | "right";
+}
+
+interface IconButtonWithoutIconProps extends BaseIconButtonProps {
+  icon?: never;
+  iconPosition?: never;
+}
+
+type IconButtonProps = IconButtonWithIconProps | IconButtonWithoutIconProps;
+
+const IconButton = ({
   icon,
   iconPosition = "left",
   children,
   variant = "default",
   scale = "lg",
   className,
-  onClick, 
+  onClick,
   ...props
-}) => {
+}: IconButtonProps) => {
   return (
     <button
       {...props}
@@ -35,11 +41,11 @@ const IconButton: React.FC<IconButtonProps> = ({
       )}
       onClick={onClick}
     >
-      {iconPosition === "left" && (
+      {icon && iconPosition === "left" && (
         <span className={clsx(styles.icon, styles.iconFirst)}>{icon}</span>
       )}
       <span className={styles.text}>{children}</span>
-      {iconPosition === "right" && (
+      {icon && iconPosition === "right" && (
         <span className={clsx(styles.icon, styles.iconLast)}>{icon}</span>
       )}
     </button>

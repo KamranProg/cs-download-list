@@ -1,8 +1,7 @@
-/* IconButton.module.css */
 .iconButton {
   display: inline-flex;
   align-items: center;
-  padding: 4px 10px;
+  padding: 0.25rem 0.5rem;
   text-decoration: none;
   color: var(--black);
   cursor: pointer;
@@ -14,7 +13,7 @@
   border: 2px solid transparent;
 }
 
-/* Icon Styles */
+/* Icon styles */
 .icon {
   display: inline-flex;
   align-items: center;
@@ -35,11 +34,8 @@
 }
 
 .iconButton:disabled {
-  /* color: var(--disabled-color); */
   opacity: 0.5;
-  /* background-color: var(--disabled-background-color); */
   cursor: not-allowed;
-  /* border-color: var(--gray); */
 }
 
 .default:hover .icon svg {
@@ -64,23 +60,19 @@
   background-color: var(--lightblack);
 }
 
-/* Scale variations if needed */
+/* Scale variations */
 .xs {
-  /* padding: 4px 8px; */
   font-size: 0.75rem;
 }
 
 .sm {
-  /* padding: 6px 12px; */
   font-size: 0.875rem;
 }
 
 .md {
-  /* padding: 8px 16px; */
   font-size: 1rem;
 }
 
 .lg {
-  /* padding: 10px 20px; */
   font-size: 1.25rem;
 }
