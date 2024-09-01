@@ -1,0 +1,25 @@
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem;
+}
+.pagination button {
+  align-self: center;
+}
+
+.pagination .text {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--lightblack);
+  align-self: center;
+}
+.paginationDropdown {
+  flex-grow: 1;
+}
+@media (max-width: 600px) {
+  .paginationDropdown {
+    flex-grow: 1;
+    flex-basis: 100%; /* Starts out taking the full width */
+  }
+}
