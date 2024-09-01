@@ -9,14 +9,16 @@ describe("FileListHeader", () => {
 
   it("renders correctly", () => {
     render(
-      <FileListHeader
-        onDownload={mockOnDownload}
-        onSelectAll={mockOnSelectAll}
-        isAvailable={true}
-        selectedCount={1}
-        selectAllStatus={CHECKBOX_STATES.Checked}
-        selectedMsg="1 item selected"
-      />
+      <table>
+        <FileListHeader
+          onDownload={mockOnDownload}
+          onSelectAll={mockOnSelectAll}
+          isAvailable={true}
+          selectedCount={1}
+          selectAllStatus={CHECKBOX_STATES.Checked}
+          selectedMsg="1 item selected"
+        />
+      </table>
     );
 
     // Correct the aria-label expectation to match the dynamically generated label
@@ -32,12 +34,14 @@ describe("FileListHeader", () => {
 
   it("calls onSelectAll when TriStateCheckbox is interacted with", () => {
     render(
-      <FileListHeader
-        onSelectAll={mockOnSelectAll}
-        selectAllStatus={CHECKBOX_STATES.Empty}
-        selectedCount={0}
-        selectedMsg="None selected"
-      />
+      <table>
+        <FileListHeader
+          onSelectAll={mockOnSelectAll}
+          selectAllStatus={CHECKBOX_STATES.Empty}
+          selectedCount={0}
+          selectedMsg="None selected"
+        />
+      </table>
     );
 
     fireEvent.click(
@@ -48,13 +52,16 @@ describe("FileListHeader", () => {
 
   it("enables the download button when items are selected and available", () => {
     render(
-      <FileListHeader
-        onDownload={mockOnDownload}
-        isAvailable={true}
-        selectedCount={5}
-        selectAllStatus={CHECKBOX_STATES.Checked}
-        selectedMsg="5 items selected"
-      />
+      <table>
+        <FileListHeader
+          onSelectAll={mockOnSelectAll}
+          onDownload={mockOnDownload}
+          isAvailable={true}
+          selectedCount={5}
+          selectAllStatus={CHECKBOX_STATES.Checked}
+          selectedMsg="5 items selected"
+        />
+      </table>
     );
 
     const downloadButton = screen.getByText("Download selected");
@@ -63,13 +70,16 @@ describe("FileListHeader", () => {
 
   it("disables the download button when no items are selected or not available", () => {
     render(
-      <FileListHeader
-        onDownload={mockOnDownload}
-        isAvailable={false}
-        selectedCount={0}
-        selectAllStatus={CHECKBOX_STATES.Empty}
-        selectedMsg="None selected"
-      />
+      <table>
+        <FileListHeader
+          onSelectAll={mockOnSelectAll}
+          onDownload={mockOnDownload}
+          isAvailable={false}
+          selectedCount={0}
+          selectAllStatus={CHECKBOX_STATES.Empty}
+          selectedMsg="None selected"
+        />
+      </table>
     );
 
     const downloadButton = screen.getByRole("button", {
