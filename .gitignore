@@ -37,3 +37,6 @@ next-env.d.ts
 
 # json server db
 /src/data/db.json
+
+# git bundle
+*.bundle
