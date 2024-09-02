@@ -12,10 +12,6 @@ async function InfiniteScrollList() {
     perPage: 10,
   });
 
-  console.log("================ InfiniteScrollList fetchData \n");
-  console.log("InfiniteScrollList fetchData: ", data);
-  console.log("\n================ \n");
-
   return (
     <>
       <ContentBlock
