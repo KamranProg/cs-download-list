@@ -18,6 +18,8 @@ interface PaginationProps {
   perPageOptions: number[];
   variant?: "default" | "outlined" | "contained";
   scale?: "xs" | "sm" | "md" | "lg";
+  position?: "top" | "bottom" | "both";
+  children?: React.ReactNode;
 }
 
 const Pagination = ({
@@ -26,8 +28,10 @@ const Pagination = ({
   perPageOptions,
   variant = "outlined",
   scale = "md",
+  position = "both",
+  children,
 }: PaginationProps) => {
-  const [perPage, setPerPage] = useState(perPageOptions[0]); // Default to the first option
+  const [perPage, setPerPage] = useState(perPageOptions[0]);
   const router = useRouter();
 
   const handlePageChange = (newPage: number) => {
@@ -41,19 +45,22 @@ const Pagination = ({
 
   useEffect(() => {
     router.push(`/paginated-list?page=${currentPage}&per_page=${perPage}`);
-  }, [perPage]);
+  }, [perPage, currentPage]);
 
-  return (
+  const renderDropdown = () => (
+    <Dropdown
+      options={perPageOptions}
+      value={perPage}
+      onChange={handlePerPageChange}
+      variant={variant}
+      scale={scale}
+      key={perPage}
+    />
+  );
+
+  const paginationContent = (
     <div className={clsx(styles.pagination, "flexBaseline")}>
-      <div className={styles.paginationDropdown}>
-        <Dropdown
-          options={perPageOptions}
-          value={perPage}
-          onChange={handlePerPageChange}
-          variant={variant}
-          scale={scale}
-        />
-      </div>
+      <div className={styles.paginationDropdown}>{renderDropdown()}</div>
       <IconButton
         onClick={() => handlePageChange(1)}
         disabled={currentPage === 1}
@@ -97,6 +104,14 @@ const Pagination = ({
       >
         Last
       </IconButton>
+    </div>
+  );
+
+  return (
+    <div className="flexGapCol">
+      {(position === "top" || position === "both") && paginationContent}
+      {children}
+      {(position === "bottom" || position === "both") && paginationContent}
     </div>
   );
 };

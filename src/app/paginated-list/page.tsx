@@ -36,24 +36,18 @@ async function PaginatedList({
           "both can use ListProvider context in their implementation.",
         ]}
       >
-        <div className="flexGapCol">
+        <ListProvider data={avilableFileData} keyExtractor="path">
           <Pagination
             pages={pages}
             perPageOptions={[5, 10, 20]}
             currentPage={currentPage}
-          />
-          <ListProvider data={avilableFileData} keyExtractor="path">
+          >
             <TableListWrapper
               headerComponent={<TableListHeader />}
               rowsComponent={<TableListRows data={data} />}
             />
-          </ListProvider>
-          <Pagination
-            pages={pages}
-            perPageOptions={[5, 10, 20]}
-            currentPage={currentPage}
-          />
-        </div>
+          </Pagination>
+        </ListProvider>
       </ContentBlock>
     </>
   );
