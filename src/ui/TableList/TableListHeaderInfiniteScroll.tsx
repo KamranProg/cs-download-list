@@ -27,7 +27,11 @@ const TableListHeaderInfiniteScroll = ({
   const isAvailable = loadedItems.some((item) => item.status === "available");
 
   const handleDownload = () => {
-    const message = Object.keys(checkedItems)
+    const messageHeader =
+      selectedCount === 1
+        ? "1 file selected:"
+        : `${selectedCount} files selected:`;
+    const messageBody = Object.keys(checkedItems)
       .map((key) => {
         const { name, path, status } = checkedItems[key].item;
         if (status === "available") {
@@ -37,6 +41,7 @@ const TableListHeaderInfiniteScroll = ({
       })
       .filter((msg) => msg)
       .join("\n\n");
+    const message = `${messageHeader}\n\n${messageBody}`;
     alert(message);
   };
 
