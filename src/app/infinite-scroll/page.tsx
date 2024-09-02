@@ -15,7 +15,7 @@ async function InfiniteScrollList() {
   return (
     <>
       <ContentBlock
-        title="TableList with InfiniteScrol"
+        title="TableList with infinite scroll"
         titleTag="h1"
         description={[
           "Wrapped in a ListProvider and accepts any custom component in the headerComponent and rowsComponent that implements infinite Scroll props,",
