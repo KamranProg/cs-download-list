@@ -7,21 +7,28 @@ import TriStateCheckbox, {
 import IconButton from "@/ui/IconButton/IconButton";
 import { AiOutlineDownload } from "react-icons/ai";
 import { useListContext } from "@/ui/FileList/ListProvider";
-import styles from "../FileList/FileListHeader.module.css";
 import { FileData } from "@/data/files_data";
+import styles from "../FileList/FileListHeader.module.css";
 
 interface TableListHeaderProps {
   className?: string;
 }
 const TableListHeader = ({ className }: TableListHeaderProps) => {
-  const { handleSelectAll, checkboxState, selectedCount, checkedItems, data } = useListContext<FileData>();
-  const selectedMsg = `${selectedCount} item${selectedCount === 1 ? "" : "s"} selected`;
-  const selectAllStatus: CheckboxState = checkboxState; // Use the state directly from context
-  const isDownloadEnabled = selectedCount > 0; // Ensure there are selected items
+  const { handleSelectAll, checkboxState, selectedCount, checkedItems, data } =
+    useListContext<FileData>();
+  const selectedMsg = `${selectedCount} item${
+    selectedCount === 1 ? "" : "s"
+  } selected`;
+  const selectAllStatus: CheckboxState = checkboxState;
+  const isDownloadEnabled = selectedCount > 0;
   const isAvailable = data.some((item) => item.status === "available");
 
   const handleDownload = () => {
-    const message = Object.keys(checkedItems)
+    const messageHeader =
+      selectedCount === 1
+        ? "1 file selected:"
+        : `${selectedCount} files selected:`;
+    const messageBody = Object.keys(checkedItems)
       .map((key) => {
         const { name, path, status } = checkedItems[key].item;
         if (status === "available") {
@@ -31,10 +38,10 @@ const TableListHeader = ({ className }: TableListHeaderProps) => {
       })
       .filter((msg) => msg)
       .join("\n\n");
+    const message = `${messageHeader}\n\n${messageBody}`;
     alert(message);
   };
 
-  // Adapter function to handle checkbox change events
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     handleSelectAll(event.target.checked);
   };
@@ -47,7 +54,7 @@ const TableListHeader = ({ className }: TableListHeaderProps) => {
             name="select-all"
             aria-label={`Select all files, currently ${selectedMsg.toLowerCase()}`}
             value={selectAllStatus}
-            onChange={handleCheckboxChange} // Use the adapter function here
+            onChange={handleCheckboxChange}
           />
         </th>
         <th className={styles.minTextWidth} aria-hidden={true}>
