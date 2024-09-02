@@ -1,0 +1,17 @@
+.headerLinks .link {
+  color: (var(--gray));
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.headerLinks .link:hover {
+  background-color: (var(--lightblack));
+  text-decoration: underline;
+}
+
+.headerLinks .link.active {
+  background-color: #f4f4f4;
+  color: (var(--black));
+}
