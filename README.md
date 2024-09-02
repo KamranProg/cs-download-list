@@ -1,12 +1,34 @@
 # FileList
 
 ![Project Image](docs/images/file_list.png)
+![Project Image](docs/images/infinite_scroll_pagination.png)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-First, run the development server:
+First, install dependencies:
+
+```bash
+npm install
+# or
+yarn install
+# or
+pnpm install
+# or
+bun install
+```
+
+Next, run generate local JSON db and spin local server:
+
+```bash
+# Generate mock data
+npm run db:generate
+# Start JSON server in watch mode
+npm run server:run
+```
+
+run the app development server:
 
 ```bash
 npm run dev
@@ -48,6 +70,70 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 In React, **composition** and **slots** are powerful concepts used to build flexible and reusable components.
 These concepts are foundational in many design systems, such as Material UI, allowing developers to insert custom content into predefined component slots.
 
+## Paginated list Implementation
+
+### Usage Example
+```jsx
+<Pagination
+  pages={pages}
+  perPageOptions={[5, 10, 20]}
+  currentPage={currentPage}
+/>
+<ListProvider data={avilableFileData} keyExtractor="path">
+  <TableListWrapper
+    headerComponent={<TableListHeader />}
+    rowsComponent={<TableListRows data={data} />}
+  />
+</ListProvider>
+```
+
+### Pagination Component
+- Manages page navigation.
+- `currentPage` sets the displayed data.
+
+### ListProvider Component
+- Provides context across components, enabling shared data access.
+
+### TableListWrapper Component
+- Structures the display layout for data.
+- Includes `headerComponent` for headers and `rowsComponent` for data rows.
+
+## Infinite Scroll Implementation
+
+### Usage Example
+```jsx
+<ListProviderInfiniteScroll
+  data={data}
+  availableItems={avilableFileData}
+  keyExtractor="path"
+  filter={{ status: "available" }}
+>
+  <TableListWrapper
+    headerComponent={<TableListHeaderInfiniteScroll />}
+    rowsComponent={<TableListRowsInfiniteScroll totalPages={pages} />}
+  />
+</ListProviderInfiniteScroll>
+```
+
+### ListProviderInfiniteScroll Component
+- Manages the data context for infinite scrolling features.
+- Filters data based on availability with `filter={{ status: "available" }}`.
+
+### TableListWrapper Component
+- Organizes the layout for infinite scrolling.
+- Utilizes `headerComponent` for dynamic headers and `rowsComponent` for data rows, adapting to page changes.
+
+
+## Key Benefits
+- **Modularity**: Clear separation within components.
+- **Reusability**: Simplifies the reuse of components like Pagination, ListProviderInfiniteScroll and its components.
+- **Flexibility**: Aids in independent component development and testing.
+
+This architecture is ideal for complex, interactive applications, enhancing both development efficiency and user interaction.
+
+
+
+
 ### Example with `FileList` and `FileListHeader`
 
 In this example, the `FileList` component is designed to accept a `header` prop, which acts as a slot.
@@ -83,7 +169,7 @@ return (
     <div className="container">
       <h1>FileList</h1>
 
-      <div className={styles.flexGap}>
+      <div className={styles.flexGapRow}>
         <FileList
           data={data}
           checkedItems={checkedItems}
@@ -149,7 +235,7 @@ export default function FileList({
 
 A## Flexible Composition with Slots and Children in React
 
-In React, the design of components can be made highly flexible by using props and children to manage content dynamically. The `FileList` component is an excellent example of how this flexibility can be achieved, particularly in the encapsulation of content within the `<tbody>` element.
+In React, the design of components can be made highly flexible by using props and children to manage content dynamically. The `FileList` component is an excellent example of how this flexibility can be achieved, particularly in encapsulating content within the `<tbody>` element.
 
 ### Slot vs. Children in `FileList`
 
@@ -171,7 +257,7 @@ export default function FileList({
 }
 ```
 
-body prop as slot - useful when you want to control the rendering of the body content externally while keeping the layout within FileList.
+The body prop is a slot, which is useful when you want to control the rendering of the body content externally while keeping the layout within FileList.
 
 ```jsx
 <FileList
@@ -195,4 +281,28 @@ using children which will be rendered within the <tbody> is highly flexible and 
 </FileList>
 ```
 
-Choosing between a slot (body) and children gives component users the flexibility this is highly dependent on specific requirments.
+Choosing between a slot (body) and children gives component users flexibility this is highly dependent on specific requirements.
+
+## Tests React testing library & Jest
+
+run the tests:
+
+```bash
+npm test
+# or
+yarn test
+# or
+pnpm test
+# or
+bun test
+
+# watch in mode
+npm run test:watch
+# or
+yarn test:watch
+# or
+pnpm test:watch
+# or
+bun test:watch
+
+```
