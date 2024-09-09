@@ -1,3 +1,10 @@
+.headerLinks nav {
+  display: flex;
+  align-items: center;
+  padding: 10px 0;
+  gap: 1rem;
+}
+
 .headerLinks .link {
   color: (var(--gray));
   text-decoration: none;
@@ -13,5 +20,5 @@
 
 .headerLinks .link.active {
   background-color: #f4f4f4;
-  color: (var(--black));
+  color: black;
 }
