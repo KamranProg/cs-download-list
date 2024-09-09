@@ -30,8 +30,8 @@ const ContentBlock: React.FC<ContentBlockProps> = ({
   return (
     <div>
       {title && <TitleTag>{title}</TitleTag>}
-      <p>{description && renderDescription()}</p>
-      <div className={className}>{children}</div>
+      {description&&<p>{renderDescription()}</p>}
+      {children && <div className={className}>{children}</div>}
     </div>
   );
 };
