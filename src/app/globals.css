@@ -1,17 +1,5 @@
 @layer base {
   :root {
-    /* colors */
-    --lightblack: #808080;
-    --black: #7c7c7c; /* #515151; */
-    --green: #86ce3d;
-    --blue: #4b95e0;
-    --lightgray: #f5f5f5;
-    --grayseperator: #ebebeb;
-    --gray: #eeeeee;
-    --white: #ffffff;
-    --disabled-color: #4a4a4a; /* Dark gray text */
-    --disabled-background-color: #f8d7da; /* A soft red similar to the commonly used light red for alerts */
-    --focus-color: #ffa500;
     /* font sizes */
     --base-size: 1rem;
     --scale: 1.2;
@@ -50,7 +38,35 @@
     --minus-width-lg: calc(0.625 * var(--text-lg));
     --minus-height-lg: calc(0.125 * var(--text-lg));
     --border-width-lg: calc(0.125 * var(--text-lg));
+
+    /* colors */
+    --lightblack: #808080;
+    --black: #7c7c7c; /* #515151; */
+    --green: #86ce3d;
+    --blue: #4b95e0;
+    --lightgray: #f5f5f5;
+    --grayseperator: #ebebeb;
+    --gray: #eeeeee;
+    --white: #ffffff;
+    --disabled-color: #4a4a4a; /* Dark gray text */
+    --disabled-background-color: #f8d7da; /* A soft red similar to the commonly used light red for alerts */
+    --focus-color: #ffa500;
   }
+
+  /* New dark theme variables */
+  [data-theme="dark"] {
+    --lightblack: #7c7c7c;
+    --black: white;
+    --green: #669f5b;
+    --blue: #6b8fb4;
+    --lightgray: #2e2e2e;
+    --gray: #424242;
+    --white: #020817;
+    --disabled-color: #525252;
+    --disabled-background-color: #423e3b;
+    --focus-color: #ffbd44;
+  }
+
   /* Reset and global styles */
   html {
     box-sizing: border-box;
