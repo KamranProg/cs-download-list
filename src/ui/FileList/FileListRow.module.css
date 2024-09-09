@@ -7,7 +7,6 @@
 }
 
 .fileListRow.rowNotSelectable {
-  /* background-color: var(--disabled-background-color); */
   cursor: not-allowed;
   color: var(--disabled-color);
   opacity: 0.76;
@@ -41,7 +40,6 @@
 }
 
 /* Adjustments for mobile sizes */
-
 .fileListRow span.mobileSizeLabel {
   display: none;
 }
@@ -53,7 +51,7 @@
   .fileListRow td {
     display: flex;
     width: 100%;
-    padding-top: 10px; /* top border effect */
+    padding-top: 10px;
     border-top: 1px solid var(--grayseperator);
     text-align: left;
   }
@@ -63,12 +61,4 @@
     margin-right: 0.5rem;
     font-weight: 900;
   }
-  /* .fileListRow td:nth-child(4),
-  .fileListRow td:nth-child(5) {
-
-    display: block;
-    width: 100%;
-    padding-top: 10px;
-    border-top: 1px solid var(--grayseperator);
-  }  */
 }

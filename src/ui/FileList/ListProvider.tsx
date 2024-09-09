@@ -45,7 +45,9 @@ function ListProvider<T>({
   >({});
 
   const [selectedCount, setSelectedCount] = useState<number>(0);
-  const [checkboxState, setCheckboxState] = useState<CheckboxState>(CHECKBOX_STATES.Empty);
+  const [checkboxState, setCheckboxState] = useState<CheckboxState>(
+    CHECKBOX_STATES.Empty
+  );
 
   const getKey = (item: T) => {
     return typeof keyExtractor === "function"
