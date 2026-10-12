@@ -1,308 +1,245 @@
-# FileList
+# cs-download-list
 
-![Project Image](docs/images/file_list.png)
-![Project Image](docs/images/infinite_scroll_pagination.png)
+A modern React/Next.js application demonstrating advanced file list management with pagination, infinite scroll, theme support, and interactive file selection.
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![Project Demo](docs/images/file_list.png)
+![Infinite Scroll](docs/images/infinite_scroll_pagination.png)
 
-## Getting Started
+## Overview
 
-First, install dependencies:
+cs-download-list showcases best practices in React component design, including composition patterns, context-based state management, and responsive UI. The application provides two distinct approaches to browsing large file datasets: traditional pagination and infinite scroll.
 
+## Architecture
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                        App Layer                             │
+│  ┌──────────────────┐  ┌──────────────────┐                 │
+│  │ Paginated List   │  │ Infinite Scroll  │                 │
+│  │     Page         │  │       Page       │                 │
+│  └────────┬─────────┘  └────────┬─────────┘                 │
+└───────────┼──────────────────────┼──────────────────────────┘
+            │                      │
+┌───────────┴──────────────────────┴──────────────────────────┐
+│              Context & State Management Layer                │
+│  ┌─────────────────────┐      ┌──────────────────────────┐  │
+│  │  ListProvider       │      │ ListProviderInfiniteScroll
+│  │ (Pagination)        │      │ (Infinite Scroll)        │  │
+│  └──────────┬──────────┘      └──────────┬───────────────┘  │
+└─────────────┼──────────────────────────────┼────────────────┘
+              │                              │
+┌─────────────┴──────────────────────────────┴────────────────┐
+│                      UI Component Layer                      │
+│  ┌──────────────────┐  ┌──────────────────┐                 │
+│  │ TableListWrapper │  │ ModalDialog      │                 │
+│  │                  │  │                  │                 │
+│  ├─ TableListHeader ├─ ├─ FileCard Grid   │                 │
+│  ├─ TableListRows   │  │                  │                 │
+│  │                  │  │ (Theme Support)  │                 │
+│  └──────────────────┘  └──────────────────┘                 │
+│                                                              │
+│  ┌──────────────────┐  ┌──────────────────┐                 │
+│  │ Pagination       │  │ CheckBox          │                 │
+│  │ Component        │  │ (Tri-State)      │                 │
+│  └──────────────────┘  └──────────────────┘                 │
+└─────────────────────────────────────────────────────────────┘
+              │
+┌─────────────┴────────────────────────────────────────────────┐
+│                   Data & Utilities Layer                     │
+│  ┌──────────────────┐  ┌──────────────────┐                 │
+│  │ files_data.ts    │  │ useTriStateCheck │                 │
+│  │ (Mock Data)      │  │        Box       │                 │
+│  └──────────────────┘  └──────────────────┘                 │
+│                                                              │
+│  ┌──────────────────────────────────────┐                   │
+│  │ JSON Server (Local API - Port 5002)  │                   │
+│  └──────────────────────────────────────┘                   │
+└─────────────────────────────────────────────────────────────┘
+```
+
+## Quick Start
+
+### Prerequisites
+- Node.js 16+ and npm/yarn/pnpm/bun installed
+
+### Installation & Setup
+
+1. **Clone and Install Dependencies**
 ```bash
 npm install
-# or
-yarn install
-# or
-pnpm install
-# or
-bun install
 ```
 
-Next, run generate local JSON db and spin local server:
-
+2. **Generate Mock Data**
 ```bash
-# Generate mock data
 npm run db:generate
-# Start JSON server in watch mode
+```
+
+3. **Start JSON Server** (in one terminal)
+```bash
 npm run server:run
 ```
+The API server will run on `http://localhost:5002`
 
-run the app development server:
-
+4. **Start Development Server** (in another terminal)
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-You can also build and serve:
+5. **Open in Browser**
+Navigate to [http://localhost:3000](http://localhost:3000)
 
+### Available Routes
+- `/` - Paginated file list
+- `/paginated-list` - Paginated view with navigation controls
+- `/infinite-scroll` - Infinite scroll implementation
+
+## Available Scripts
+
+| Script | Purpose |
+|--------|---------|
+| `npm run dev` | Start development server |
+| `npm run build` | Build for production |
+| `npm start` | Start production server |
+| `npm run lint` | Run ESLint |
+| `npm test` | Run test suite once |
+| `npm run test:watch` | Run tests in watch mode |
+| `npm run db:generate` | Generate mock data for local API |
+| `npm run server:run` | Start JSON server (mock API) |
+
+## Project Structure
+
+```
+src/
+├── app/                          # Next.js app directory
+│   ├── layout.tsx               # Root layout with theme provider
+│   ├── page.tsx                 # Default paginated list view
+│   ├── paginated-list/          # Pagination example
+│   │   └── page.tsx
+│   └── infinite-scroll/         # Infinite scroll example
+│       ├── page.tsx
+│       └── actions.ts           # Server actions
+├── ui/                          # Reusable UI components
+│   ├── CheckBox/                # Tri-state checkbox with hook
+│   ├── FileList/                # File list components
+│   ├── List1/                   # Generic list implementation
+│   ├── ModalDialog/             # Modal component with responsive styles
+│   ├── Pagination/              # Pagination control
+│   ├── TableList/               # Table-based list components
+│   ├── ThemeSwitch/             # Theme toggle button
+│   ├── ContentBlock/            # Flexible content wrapper
+│   └── Dropdown/                # Dropdown selector
+└── data/                        # Data management
+    ├── files_data.ts            # Mock file data
+    └── generateData.ts          # Mock data generator
+```
+
+## Key Features
+
+### 1. Component Composition
+Components accept flexible props to support multiple use cases:
+- `header` prop for custom headers
+- `body` prop for custom body content
+- `children` for flexible slot-based design
+
+### 2. Context-Based State Management
+- **ListProvider**: Manages pagination state and filtered data
+- **ListProviderInfiniteScroll**: Handles infinite scroll with intersection observer
+
+### 3. Tri-State Checkbox
+`useTriStateCheckBox` hook manages three selection states:
+- All items selected
+- Some items selected
+- No items selected
+
+### 4. Theme Support
+Integrated with `next-themes` for seamless light/dark mode switching without flashing.
+
+### 5. Responsive Modal Dialog
+`ModalDialog` component displays selected files with:
+- Responsive grid layout
+- Dynamic file icons from external API
+- Keyboard accessibility support
+
+### 6. File Selection Flow
+```
+1. User selects files using checkboxes
+2. Count and state tracked via context
+3. Download button in header triggers modal
+4. Modal displays selected files with icons
+5. Theme automatically applied to modal content
+```
+
+## Testing
+
+Run the test suite:
 ```bash
-npm run build
-
-npm start
-
-# or
-yarn build
-
-yarn start
-# or
-pnpm build
-
-pnpm start
-# or
-bun build
-
-bun start
+npm test
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run tests in watch mode:
+```bash
+npm run test:watch
+```
 
-## Composition, Children, and Slots in React Components
+Tests use **Jest** and **React Testing Library** for component testing.
 
-### Overview
+## Development Patterns
 
-In React, **composition** and **slots** are powerful concepts used to build flexible and reusable components.
-These concepts are foundational in many design systems, such as Material UI, allowing developers to insert custom content into predefined component slots.
-
-## Paginated list Implementation
-
-### Usage Example
+### Using ListProvider for Pagination
 ```jsx
-<Pagination
-  pages={pages}
-  perPageOptions={[5, 10, 20]}
-  currentPage={currentPage}
-/>
-<ListProvider data={avilableFileData} keyExtractor="path">
+<ListProvider data={fileData} keyExtractor="path">
   <TableListWrapper
     headerComponent={<TableListHeader />}
-    rowsComponent={<TableListRows data={data} />}
+    rowsComponent={<TableListRows />}
   />
 </ListProvider>
 ```
 
-### Pagination Component
-- Manages page navigation.
-- `currentPage` sets the displayed data.
-
-### ListProvider Component
-- Provides context across components, enabling shared data access.
-
-### TableListWrapper Component
-- Structures the display layout for data.
-- Includes `headerComponent` for headers and `rowsComponent` for data rows.
-
-## Infinite Scroll Implementation
-
-### Usage Example
+### Using ListProviderInfiniteScroll
 ```jsx
 <ListProviderInfiniteScroll
-  data={data}
-  availableItems={avilableFileData}
+  data={fileData}
   keyExtractor="path"
   filter={{ status: "available" }}
 >
   <TableListWrapper
     headerComponent={<TableListHeaderInfiniteScroll />}
-    rowsComponent={<TableListRowsInfiniteScroll totalPages={pages} />}
+    rowsComponent={<TableListRowsInfiniteScroll />}
   />
 </ListProviderInfiniteScroll>
 ```
 
-### ListProviderInfiniteScroll Component
-- Manages the data context for infinite scrolling features.
-- Filters data based on availability with `filter={{ status: "available" }}`.
-
-### TableListWrapper Component
-- Organizes the layout for infinite scrolling.
-- Utilizes `headerComponent` for dynamic headers and `rowsComponent` for data rows, adapting to page changes.
-
-
-## Key Benefits
-- **Modularity**: Clear separation within components.
-- **Reusability**: Simplifies the reuse of components like Pagination, ListProviderInfiniteScroll and its components.
-- **Flexibility**: Aids in independent component development and testing.
-
-This architecture is ideal for complex, interactive applications, enhancing both development efficiency and user interaction.
-
-
-
-
-### Example with `FileList` and `FileListHeader`
-
-In this example, the `FileList` component is designed to accept a `header` prop, which acts as a slot.
-This slot can be filled with any React component, such as `FileListHeader`, enabling dynamic composition based on the needs of the application.
-
+### Theme Toggle
 ```jsx
-const {
-  checkedItems,
-  selectedCount,
-  isAvailable,
-  handleSelectOne,
-  selectedMsg,
-  selectAllStatus,
-  handleSelectAll,
-} = useTriStateCheckBox(data.filter((item) => item.status === "available"));
+import { ThemeSwitch } from '@/ui/ThemeSwitch/ThemeSwitch';
 
-const handleDownload = () => {
-  const message = Object.keys(checkedItems)
-    .map((key) => {
-      const { name, path, status } = checkedItems[key].file;
-      if (status === "available") {
-        return `${name} available for download from ${path},`;
-      }
-    })
-    .filter((key) => key)
-    .join("\n\n");
-
-  alert(message);
-};
-
-return (
-  <main className={styles.main}>
-    <div className="container">
-      <h1>FileList</h1>
-
-      <div className={styles.flexGapRow}>
-        <FileList
-          data={data}
-          checkedItems={checkedItems}
-          onSelectOne={handleSelectOne}
-          header={
-            <FileListHeader
-              onSelectAll={handleSelectAll}
-              onDownload={handleDownload}
-              isAvailable={isAvailable}
-              selectedCount={selectedCount}
-              selectAllStatus={selectAllStatus}
-              selectedMsg={selectedMsg}
-            />
-          }
-        />
-      </div>
-
-      {/* Additional content */}
-    </div>
-  </main>
-);
+<ThemeSwitch />
 ```
 
-## State Management with Custom Hooks
+## Technologies
 
-Using custom hooks like `useTriStateCheckBox` enhances modularity and maintainability in React applications.
-By extracting state logic into a separate hook, components remain clean and focused solely on the presentation.
-This pattern not only simplifies the components but also facilitates reuse and testing of the state logic independently.
+- **Framework**: Next.js 14 with React 18
+- **Language**: TypeScript
+- **Styling**: CSS Modules
+- **Theme**: next-themes for dark mode support
+- **Icons**: react-icons
+- **Intersection Observer**: react-intersection-observer for infinite scroll
+- **Testing**: Jest + React Testing Library
+- **Mock API**: json-server
 
-Here's an example of how `useTriStateCheckBox` is utilized to manage state in a component that handles file selections and downloads:
+## Browser Support
 
-> **Note:** In case this state is needed for other components other than `FileList`, we could use Context.
+Modern browsers (Chrome, Firefox, Safari, Edge) with ES2020+ support.
 
-## Composition in React Components
+## License
 
-The `FileList` component exemplifies a common React pattern known as composition, where a component is designed to encapsulate other components or content passed as props or children. This approach enhances flexibility and reusability across the UI of an application.
+MIT
 
-```jsx
-export default function FileList({
-  checkedItems,
-  data,
-  onSelectOne,
-  header,
-  className,
-}: FileListProps) {
-  return (
-    <table className={clsx(styles.fileList, className)}>
-      {header}
-      <tbody>
-        {data.map((file: FileData) => (
-          <FileListRow
-            key={file.path}
-            file={file}
-            handleSelectOne={onSelectOne}
-            checked={checkedItems[file?.path]?.checked || false}
-          />
-        ))}
-      </tbody>
-    </table>
-  );
-}
-```
+## Contributing
 
-A## Flexible Composition with Slots and Children in React
-
-In React, the design of components can be made highly flexible by using props and children to manage content dynamically. The `FileList` component is an excellent example of how this flexibility can be achieved, particularly in encapsulating content within the `<tbody>` element.
-
-### Slot vs. Children in `FileList`
-
-The `FileList` component can be designed to accept both a `header` prop and a `body` prop as slots, or it can use `children` to allow content to be injected directly from where it's used. This approach provides flexibility in how table rows are defined and rendered:
-
-```jsx
-export default function FileList({
-  header,
-  body, // Optional slot for tbody content
-  className,
-  children, // Alternatively, use children directly in tbody
-}: FileListProps) {
-  return (
-    <table className={clsx(styles.fileList, className)}>
-      {header}
-      <tbody>{body || children}</tbody>
-    </table>
-  );
-}
-```
-
-The body prop is a slot, which is useful when you want to control the rendering of the body content externally while keeping the layout within FileList.
-
-```jsx
-<FileList
-  header={<CustomHeader />}
-  body={<CustomBody />}
-  className="custom-class"
-/>
-```
-
-using children which will be rendered within the <tbody> is highly flexible and good when the component needs to support a wide range of content structures:
-
-```jsx
-<FileList header={<CustomHeader />} className="custom-class">
-  <tr>
-    <td>Data 1</td>
-  </tr>
-  <tr>
-    <td>Data 2</td>
-  </tr>
-  {/* More rows as needed */}
-</FileList>
-```
-
-Choosing between a slot (body) and children gives component users flexibility this is highly dependent on specific requirements.
-
-## Tests React testing library & Jest
-
-run the tests:
+Contributions welcome! Please ensure tests pass and code follows the linting standards.
 
 ```bash
+npm run lint
 npm test
-# or
-yarn test
-# or
-pnpm test
-# or
-bun test
-
-# watch in mode
-npm run test:watch
-# or
-yarn test:watch
-# or
-pnpm test:watch
-# or
-bun test:watch
-
 ```
