@@ -1,0 +1,41 @@
+.fileGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+  }
+  
+  .fileCard {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
+  .fileCardImage {
+    height: 80px;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .fileCardDetails {
+    padding: 0.5rem;
+    text-align: center;
+    word-wrap: break-word;
+  }
+  
+  .fileCardDetails h3 {
+    margin: 0.5rem 0;
+    font-size: 1.2em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  
+  .fileCardDetails p {
+    font-size: 0.65em;
+    color: #666;
+    overflow-wrap: break-word;
+  }
+  
